@@ -26,14 +26,7 @@ func GetJWTFromGinHeader(c *gin.Context) (string, error) {
 	return token, err
 }
 
-func VerifyGinHeader(c *gin.Context) (bool, error) {
-	// Default claims
-	var l *Claims
-	// Verify and bind with default claims
-	return VerifyAndBindGinHeader(l, c)
-}
-
-func VerifyAndBindGinHeader(model *Claims, c *gin.Context) (bool, error) {
+func VerifyGinHeader(c *gin.Context) (claims *Claims, valid bool) {
 	isValid := !IsUseAuthorization()
 	token, err := GetJWTFromGinHeader(c)
 	if err != nil {
@@ -45,8 +38,8 @@ func VerifyAndBindGinHeader(model *Claims, c *gin.Context) (bool, error) {
 		})
 
 		if token != nil {
-			if _, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-				err = mapstructure.Decode(model, &model)
+			if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+				err = mapstructure.Decode(claims, &claims)
 				if err == nil {
 					isValid = true
 				}
@@ -55,5 +48,5 @@ func VerifyAndBindGinHeader(model *Claims, c *gin.Context) (bool, error) {
 			}
 		}
 	}
-	return isValid, err
+	return claims, isValid
 }
