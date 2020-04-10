@@ -18,7 +18,7 @@ func (auth Authorization) GenerateJWT() (string, error) {
 
 // Create password encryption using bcrypt
 func (auth Authorization) GetPasswordEncryption() ([]byte, error) {
-	return Encrypt(auth.Password)
+	return EncryptPassword(auth.Password)
 }
 
 // Create password encryption using bcrypt and string as the result

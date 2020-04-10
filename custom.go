@@ -37,6 +37,16 @@ func VerifyJWT(model jwt.Claims, token string) (bool, error) {
 }
 
 // Encrypt Password
-func Encrypt(password string) ([]byte, error) {
+func EncryptPassword(password string) ([]byte, error) {
 	return bcrypt.GenerateFromPassword([]byte(password), 12)
+}
+
+// Verify between encryption password and requested password
+func VerifyEncryption(encryptedPassword string, password string) (bool, error) {
+	isValid := false
+	err := bcrypt.CompareHashAndPassword([]byte(encryptedPassword), []byte(password))
+	if err == nil {
+		isValid = true
+	}
+	return isValid, err
 }
