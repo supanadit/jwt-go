@@ -1,9 +1,5 @@
 package ej
 
-import (
-	"golang.org/x/crypto/bcrypt"
-)
-
 // Default authorization model
 type Authorization struct {
 	Username string `form:"username" json:"username" xml:"username" binding:"required"`
@@ -22,7 +18,7 @@ func (auth Authorization) GenerateJWT() (string, error) {
 
 // Create password encryption using bcrypt
 func (auth Authorization) GetPasswordEncryption() ([]byte, error) {
-	return bcrypt.GenerateFromPassword([]byte(auth.Password), 12)
+	return Encrypt(auth.Password)
 }
 
 // Create password encryption using bcrypt and string as the result

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/mitchellh/mapstructure"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // Generate JWT Token
@@ -33,4 +34,9 @@ func VerifyJWT(model jwt.Claims, token string) (bool, error) {
 		}
 	}
 	return isValid, err
+}
+
+// Encrypt Password
+func Encrypt(password string) ([]byte, error) {
+	return bcrypt.GenerateFromPassword([]byte(password), 12)
 }
