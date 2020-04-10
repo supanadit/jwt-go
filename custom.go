@@ -6,12 +6,14 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
+// Generate JWT Token
 func GenerateJWT(model jwt.Claims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, model)
 	tokenString, err := token.SignedString(GetJWTSecretCode())
 	return tokenString, err
 }
 
+// Verify JWT Token
 func VerifyJWT(model jwt.Claims, token string) (bool, error) {
 	isValid := IsUseAuthorization()
 	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
