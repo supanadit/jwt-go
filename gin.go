@@ -26,15 +26,12 @@ func GetJWTFromGinHeader(c *gin.Context) (string, error) {
 	return token, err
 }
 
-func VerifyGinHeader(c *gin.Context) (m *interface{}, valid bool) {
-	isValid := !IsUseAuthorization()
-	authorization := c.GetHeader("Authorization")
-	if authorization != "" {
-		splitAuthorization := strings.Split(authorization, " ")
-		if len(splitAuthorization) != 0 && len(splitAuthorization) == 2 {
+func VerifyGinHeader(c *gin.Context) (bool, error) {
+	return VerifyAndBindGinHeader(nil, c)
+}
 
-		}
-	}
+func VerifyAndBindGinHeader(model interface{}, c *gin.Context) (bool, error) {
+	isValid := !IsUseAuthorization()
 	token, err := GetJWTFromGinHeader(c)
 	if err != nil {
 		token, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
@@ -45,8 +42,8 @@ func VerifyGinHeader(c *gin.Context) (m *interface{}, valid bool) {
 		})
 
 		if token != nil {
-			if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-				err = mapstructure.Decode(claims, &claims)
+			if _, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+				err = mapstructure.Decode(model, &model)
 				if err == nil {
 					isValid = true
 				}
@@ -55,5 +52,5 @@ func VerifyGinHeader(c *gin.Context) (m *interface{}, valid bool) {
 			}
 		}
 	}
-	return m, isValid
+	return isValid, err
 }
