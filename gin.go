@@ -27,7 +27,7 @@ func VerifyGinHeader(c *gin.Context) bool {
 
 func VerifyAndBindingGinHeader(model interface{}, c *gin.Context) (isValid bool) {
 	token, err := GetJWTFromGinHeader(c)
-	if err != nil {
+	if err == nil {
 		isValid, err = VerifyAndBindingJWT(&model, token)
 	}
 	return isValid
