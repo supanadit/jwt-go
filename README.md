@@ -283,3 +283,26 @@ func main() {
 	_ = router.Run(":8080")
 }
 ```
+
+## Bonus
+
+You can simply `Enable` and `Disable` authorization by code bellow
+
+```go
+package main
+
+import (
+	"github.com/supanadit/easy-jwt-go"
+)
+
+func main() {
+	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	ej.SetJWTSecretCode("Your Secret Code")
+
+	ej.DisableAuthorization() // Disable authorization, meaning when verify jwt token it will return true even if the token was expired or invalid
+
+	// or
+
+	ej.EnableAuthorization() // Enable authorization
+}
+```
