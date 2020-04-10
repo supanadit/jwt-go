@@ -38,7 +38,56 @@ func main() {
 	// Verify the token
 	valid, err := auth.VerifyJWT(token)
 	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Print("Status : ")
+
+	if valid {
+		fmt.Println("Valid")
+	} else {
+		fmt.Println("Invalid")
+	}
+}
+```
+
+## Create JWT Authorization from your own struct ?
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/supanadit/easy-jwt-go"
+	"log"
+)
+
+type Login struct {
+	Email    string
+	Password string
+	jwt.Claims
+}
+
+func main() {
+	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	ej.SetJWTSecretCode("Your Secret Code")
+
+	// Create authorization from your own struct
+	auth := Login{
+		Email:    "hello@email.com",
+		Password: "123",
+	}
+
+	// Generate JWT Token
+	token, err := ej.GenerateJWT(auth)
+	if err != nil {
 		log.Fatal(err)
+	}
+
+	// Verify token
+	valid, err := ej.VerifyJWT(auth, token)
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	fmt.Print("Status : ")

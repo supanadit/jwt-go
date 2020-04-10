@@ -42,7 +42,7 @@ func EncryptPassword(password string) ([]byte, error) {
 }
 
 // Verify between encryption password and requested password
-func VerifyEncryption(encryptedPassword string, password string) (bool, error) {
+func VerifyPassword(encryptedPassword string, password string) (bool, error) {
 	isValid := false
 	err := bcrypt.CompareHashAndPassword([]byte(encryptedPassword), []byte(password))
 	if err == nil {
