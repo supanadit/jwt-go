@@ -38,12 +38,13 @@ func VerifyGinHeader(model Claims, c *gin.Context) bool {
 		})
 		if t != nil {
 			if claims, ok := t.Claims.(jwt.MapClaims); ok && t.Valid {
-				err = mapstructure.Decode(model, &claims)
+				err = mapstructure.Decode(claims, &model)
 				if err == nil {
-					isValid = true
+					fmt.Println(err)
 				}
+				isValid = true
 			} else {
-				fmt.Printf("error while parsing t \n")
+				fmt.Println(err)
 			}
 		}
 	}

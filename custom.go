@@ -34,7 +34,7 @@ func VerifyJWT(model Claims, token string) (bool, error) {
 				isValid = true
 			}
 		} else {
-			fmt.Printf("error while parsing t \n")
+			fmt.Println(err)
 		}
 	}
 	return isValid, err
