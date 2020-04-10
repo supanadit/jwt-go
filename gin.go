@@ -26,7 +26,7 @@ func GetJWTFromGinHeader(c *gin.Context) (string, error) {
 	return token, err
 }
 
-func VerifyGinHeader(model *Claims, c *gin.Context) bool {
+func VerifyGinHeader(model Claims, c *gin.Context) bool {
 	isValid := !IsUseAuthorization()
 	token, err := GetJWTFromGinHeader(c)
 	if err != nil {
