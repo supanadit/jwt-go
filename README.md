@@ -51,7 +51,9 @@ func main() {
 }
 ```
 
-## Custom Authorization
+<details><summary><b>Custom Authorization</b></summary>
+
+<p>
 
 ```go
 package main
@@ -111,7 +113,12 @@ func main() {
 }
 ```
 
-## Encrypt & Verify Password
+</p>
+</details>
+
+<details><summary><b>Encrypt & Verify Password</b></summary>
+
+<p>
 
 ```go
 package main
@@ -161,7 +168,11 @@ func main() {
 }
 ```
 
-## Decrypt Password
+</p>
+</details>
+
+<details><summary><b>Decrypt Password</b></summary>
+<p>
 
 No you can't, as the thread at [Stack Exchange](https://security.stackexchange.com/questions/193943/is-it-possible-to-decrypt-bcrypt-encryption)
 
@@ -170,7 +181,11 @@ No you can't, as the thread at [Stack Exchange](https://security.stackexchange.c
 
 so that enough to secure the password
 
-## Set Expired Time
+</p>
+</details>
+
+<details><summary><b>Set Expired Time</b></summary>
+<p>
 
 ```go
 package main
@@ -190,7 +205,11 @@ func main() {
 }
 ```
 
-## Support Gin Web Framework out of the box
+</p>
+</details>
+
+<details><summary><b>Support Gin Web Framework out of the box</b></summary>
+<p>
 
 ```go
 package main
@@ -284,7 +303,11 @@ func main() {
 }
 ```
 
-## Bonus
+</p>
+</details>
+
+<details><summary><b>Bonus</b></summary>
+<p>
 
 You can simply `Enable` and `Disable` authorization by code bellow
 
@@ -306,3 +329,6 @@ func main() {
 	jwt.EnableAuthorization() // Enable authorization
 }
 ```
+
+</p>
+</details>
