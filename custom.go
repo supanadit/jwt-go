@@ -1,4 +1,4 @@
-package ej
+package jwt
 
 import (
 	"errors"
@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-type JWTClaims struct {
+type CustomClaims struct {
 	Object interface{}
 	jwt.StandardClaims
 }
@@ -21,7 +21,7 @@ func GenerateJWT(model interface{}) (s string, e error) {
 // Generate JWT Token
 func GenerateJWTAndSetExpiredTime(model interface{}, hours int64, minutes int64, seconds int64) (s string, e error) {
 	if hours != 0 || minutes != 0 || seconds != 0 {
-		r := JWTClaims{
+		r := CustomClaims{
 			Object: model,
 			StandardClaims: jwt.StandardClaims{
 				ExpiresAt: time.Now().Local().Add(time.Hour*time.Duration(hours) +
@@ -44,11 +44,11 @@ func VerifyJWT(token string) (bool, error) {
 
 func VerifyAndBindingJWT(model interface{}, token string) (bool, error) {
 	isValid := !IsUseAuthorization()
-	t, err := jwt.ParseWithClaims(token, &JWTClaims{}, func(token *jwt.Token) (interface{}, error) {
+	t, err := jwt.ParseWithClaims(token, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return GetJWTSecretCode(), nil
 	})
 	if t != nil {
-		if claims, ok := t.Claims.(*JWTClaims); ok && t.Valid {
+		if claims, ok := t.Claims.(*CustomClaims); ok && t.Valid {
 			if model != nil {
 				err = mapstructure.Decode(claims.Object, &model)
 			}

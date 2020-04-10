@@ -19,10 +19,10 @@ import (
 
 func main() {
 	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
-	ej.SetJWTSecretCode("Your Secret Code")
+	jwt.SetJWTSecretCode("Your Secret Code")
 
 	// Create default authorization
-	auth := ej.Authorization{
+	auth := jwt.Authorization{
 		Username: "admin",
 		Password: "admin",
 	}
@@ -70,7 +70,7 @@ type Login struct {
 
 func main() {
 	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
-	ej.SetJWTSecretCode("Your Secret Code")
+	jwt.SetJWTSecretCode("Your Secret Code")
 
 	// Create default authorization
 	auth := Login{
@@ -80,7 +80,7 @@ func main() {
 	}
 
 	// Generate JWT Token from default authorization model
-	token, err := ej.GenerateJWT(auth)
+	token, err := jwt.GenerateJWT(auth)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -90,13 +90,13 @@ func main() {
 	// Variable for decoded JWT token
 	var dataAuth Login
 	// Verify the token
-	valid, err := ej.VerifyAndBindingJWT(&dataAuth, token)
+	valid, err := jwt.VerifyAndBindingJWT(&dataAuth, token)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	// or simply you can do this, if you don't need to decode the JWT
-	// valid, err := ej.VerifyJWT(token)
+	// valid, err := jwt.VerifyJWT(token)
 	// if err != nil {
 	//	 fmt.Println(err)
 	// }
@@ -129,7 +129,7 @@ type Login struct {
 
 func main() {
 	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
-	ej.SetJWTSecretCode("Your Secret Code")
+	jwt.SetJWTSecretCode("Your Secret Code")
 
 	// Create authorization from your own struct
 	auth := Login{
@@ -138,7 +138,7 @@ func main() {
 	}
 
 	// Encrypt password, which you can save to database
-	ep, err := ej.EncryptPassword(auth.Password)
+	ep, err := jwt.EncryptPassword(auth.Password)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -146,7 +146,7 @@ func main() {
 	fmt.Println("Encrypted Password " + string(ep))
 
 	// Verify Encrypted Password
-	valid, err := ej.VerifyPassword(string(ep), auth.Password)
+	valid, err := jwt.VerifyPassword(string(ep), auth.Password)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -183,10 +183,10 @@ import (
 
 func main() {
 	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
-	ej.SetJWTSecretCode("Your Secret Code")
+	jwt.SetJWTSecretCode("Your Secret Code")
  
-    // You can simply do this, ej.setExpiredTime(Hour,Minute,Second)
-	ej.SetExpiredTime(0, 0, 1)
+    // You can simply do this, jwt.setExpiredTime(Hour,Minute,Second)
+	jwt.SetExpiredTime(0, 0, 1)
 }
 ```
 
@@ -203,10 +203,10 @@ import (
 
 func main() {
 	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
-	ej.SetJWTSecretCode("Your Secret Code")
+	jwt.SetJWTSecretCode("Your Secret Code")
 
 	// Create authorization
-	auth := ej.Authorization{
+	auth := jwt.Authorization{
 		Username: "Hello World",
 		Password: "123",
 	}
@@ -215,7 +215,7 @@ func main() {
 
 	// Login / Authorization for create JWT Token
 	router.POST("/auth", func(c *gin.Context) {
-		var a ej.Authorization
+		var a jwt.Authorization
 		err := c.Bind(&a)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
@@ -256,12 +256,12 @@ func main() {
 	// Test Authorization
 	router.GET("/test", func(c *gin.Context) {
 		// Variable for binding if you need decoded JWT
-		var dataAuth ej.Authorization
+		var dataAuth jwt.Authorization
 		// Verify and binding JWT
-		token, valid, err := ej.VerifyAndBindingGinHeader(&dataAuth, c)
+		token, valid, err := jwt.VerifyAndBindingGinHeader(&dataAuth, c)
 
 		// in case if you don't want to decode the JWT, simply use this code
-		// token, valid, err := ej.VerifyGinHeader(c)
+		// token, valid, err := jwt.VerifyGinHeader(c)
 
 		if err != nil {
 			c.JSON(http.StatusOK, gin.H{
@@ -297,12 +297,12 @@ import (
 
 func main() {
 	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
-	ej.SetJWTSecretCode("Your Secret Code")
+	jwt.SetJWTSecretCode("Your Secret Code")
 
-	ej.DisableAuthorization() // Disable authorization, meaning when verify jwt token it will return true even if the token was expired or invalid
+	jwt.DisableAuthorization() // Disable authorization, meaning when verify jwt token it will return true even if the token was expired or invalid
 
 	// or
 
-	ej.EnableAuthorization() // Enable authorization
+	jwt.EnableAuthorization() // Enable authorization
 }
 ```

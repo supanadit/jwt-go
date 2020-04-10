@@ -1,4 +1,4 @@
-package ej
+package jwt
 
 // Default authorization model
 type Authorization struct {

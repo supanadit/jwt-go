@@ -1,4 +1,4 @@
-package ej
+package jwt
 
 import (
 	"errors"

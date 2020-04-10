@@ -1,4 +1,4 @@
-package ej
+package jwt
 
 // Default configuration
 var secretCodeJWT = "54A3E4F19C28CCA4A27E5648871A6"
