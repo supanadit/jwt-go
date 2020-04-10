@@ -27,3 +27,13 @@ func (auth Authorization) GetStringPasswordEncryption() (string, error) {
 func (auth Authorization) VerifyJWT(token string) (bool, error) {
 	return VerifyJWT(auth, token)
 }
+
+// Verify Password
+func (auth Authorization) VerifyPassword(password string) (bool, error) {
+	ep, err := auth.GetStringPasswordEncryption()
+	if err != nil {
+		return false, err
+	} else {
+		return VerifyPassword(ep, password)
+	}
+}
