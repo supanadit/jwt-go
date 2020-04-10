@@ -28,12 +28,12 @@ func GetJWTFromGinHeader(c *gin.Context) (string, error) {
 
 func VerifyGinHeader(c *gin.Context) (bool, error) {
 	// Default claims
-	var l Claims
+	var l *Claims
 	// Verify and bind with default claims
 	return VerifyAndBindGinHeader(l, c)
 }
 
-func VerifyAndBindGinHeader(model Claims, c *gin.Context) (bool, error) {
+func VerifyAndBindGinHeader(model *Claims, c *gin.Context) (bool, error) {
 	isValid := !IsUseAuthorization()
 	token, err := GetJWTFromGinHeader(c)
 	if err != nil {
