@@ -1,8 +1,11 @@
 package ej
 
 // Default configuration
-var secretCodeJWT string = "Default Secret Code"
-var useAuthorization bool = true
+var secretCodeJWT = "54A3E4F19C28CCA4A27E5648871A6"
+var useAuthorization = true
+var expiredHoursTime int64 = 1
+var expiredMinutesTime int64 = 0
+var expiredSecondsTime int64 = 0
 
 // Get JWT Secret Code as a string
 func GetStringJWTSecretCode() string {
@@ -32,4 +35,10 @@ func EnableAuthorization() {
 // Disable the authorization
 func DisableAuthorization() {
 	useAuthorization = false
+}
+
+func SetExpiredTime(hour int64, minute int64, second int64) {
+	expiredHoursTime = hour
+	expiredMinutesTime = minute
+	expiredSecondsTime = second
 }

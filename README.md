@@ -4,7 +4,7 @@ A JWT library for Golang, this is not original library meaning this library depe
 
 ## Installation
 
-`go get -u github.com/supanadit/easy-jwt-go`
+`go get github.com/supanadit/easy-jwt-go`
 
 ## Quick Start
 
@@ -65,30 +65,41 @@ import (
 type Login struct {
 	Email    string
 	Password string
-	ej.Claims
+	Name     string
 }
 
 func main() {
 	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
 	ej.SetJWTSecretCode("Your Secret Code")
 
-	// Create authorization from your own struct
+	// Create default authorization
 	auth := Login{
-		Email:    "hello@email.com",
-		Password: "123",
+		Email:    "asd@asd.com",
+		Password: "asd",
+		Name:     "asd",
 	}
 
-	// Generate JWT Token
+	// Generate JWT Token from default authorization model
 	token, err := ej.GenerateJWT(auth)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Verify token
-	valid, err := ej.VerifyJWT(auth, token)
+	fmt.Println("JWT Token : " + token)
+
+	// Variable for decoded JWT token
+	var dataAuth Login
+	// Verify the token
+	valid, err := ej.VerifyAndBindingJWT(&dataAuth, token)
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	// or simply you can do this, if you don't need to decode the JWT
+	// valid, err := ej.VerifyJWT(token)
+	// if err != nil {
+	//	 fmt.Println(err)
+	// }
 
 	fmt.Print("Status : ")
 
@@ -100,7 +111,7 @@ func main() {
 }
 ```
 
-## Encrypt Password & Verify Password
+## Encrypt & Verify Password
 
 ```go
 package main
@@ -114,7 +125,6 @@ import (
 type Login struct {
 	Email    string
 	Password string
-	ej.Claims
 }
 
 func main() {
@@ -148,5 +158,33 @@ func main() {
 	} else {
 		fmt.Println("Invalid")
 	}
+}
+```
+
+## Decrypt Password
+
+No you can't, as the topic at [Stack Exchange](https://security.stackexchange.com/questions/193943/is-it-possible-to-decrypt-bcrypt-encryption)
+
+> bcrypt is not an encryption function, it's a password hashing function, relying on Blowfish's key scheduling, not its encryption. Hashing are mathematical one-way functions, meaning there is no way to reverse the output string to get the input string.
+  <br/> of course only Siths deal in absolutes and there are a few attacks against hashes. But none of them are "reversing" the hashing, AFAIK.
+
+so that enough to secure the password
+
+## Set Expired Time
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/supanadit/easy-jwt-go"
+	"log"
+)
+
+func main() {
+	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	ej.SetJWTSecretCode("Your Secret Code")
+    // You can simply do this, ej.setExpiredTime(Hour,Minute,Second)
+	ej.SetExpiredTime(0, 0, 1)
 }
 ```

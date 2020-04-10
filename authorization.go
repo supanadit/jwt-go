@@ -11,6 +11,11 @@ func (auth Authorization) GenerateJWT() (string, error) {
 	return GenerateJWT(auth)
 }
 
+// Generate JWT Token by authorization model also set the expired time manually
+func (auth Authorization) GenerateJWTAndSetExpiredTime(hour int64, minute int64, seconds int64) (string, error) {
+	return GenerateJWTAndSetExpiredTime(auth, hour, minute, seconds)
+}
+
 // Create password encryption using bcrypt
 func (auth Authorization) GetPasswordEncryption() ([]byte, error) {
 	return EncryptPassword(auth.Password)
@@ -24,7 +29,7 @@ func (auth Authorization) GetStringPasswordEncryption() (string, error) {
 
 // VerifyJWT the authorization
 func (auth Authorization) VerifyJWT(token string) (bool, error) {
-	return VerifyJWT(auth, token)
+	return VerifyJWT(token)
 }
 
 // Verify Password

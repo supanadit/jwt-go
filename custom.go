@@ -1,7 +1,7 @@
 package ej
 
 import (
-	"fmt"
+	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/mitchellh/mapstructure"
 	"golang.org/x/crypto/bcrypt"
@@ -14,35 +14,45 @@ type JWTClaims struct {
 }
 
 // Generate JWT Token
-func GenerateJWT(model interface{}) (string, error) {
-	r := JWTClaims{
-		Object: model,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour).Unix(),
-		},
+func GenerateJWT(model interface{}) (s string, e error) {
+	return GenerateJWTAndSetExpiredTime(model, expiredHoursTime, expiredMinutesTime, expiredSecondsTime)
+}
+
+// Generate JWT Token
+func GenerateJWTAndSetExpiredTime(model interface{}, hours int64, minutes int64, seconds int64) (s string, e error) {
+	if hours != 0 || minutes != 0 || seconds != 0 {
+		r := JWTClaims{
+			Object: model,
+			StandardClaims: jwt.StandardClaims{
+				ExpiresAt: time.Now().Local().Add(time.Hour*time.Duration(hours) +
+					time.Minute*time.Duration(minutes) +
+					time.Second*time.Duration(seconds)).Unix(),
+			},
+		}
+		t := jwt.NewWithClaims(jwt.SigningMethodHS256, r)
+		s, e = t.SignedString(GetJWTSecretCode())
+	} else {
+		e = errors.New("expired time must be at least 1 second")
 	}
-	t := jwt.NewWithClaims(jwt.SigningMethodHS256, r)
-	s, e := t.SignedString(GetJWTSecretCode())
 	return s, e
 }
 
 // Verify JWT Token
-func VerifyJWT(model interface{}, token string) (bool, error) {
+func VerifyJWT(token string) (bool, error) {
+	return VerifyAndBindingJWT(nil, token)
+}
+
+func VerifyAndBindingJWT(model interface{}, token string) (bool, error) {
 	isValid := !IsUseAuthorization()
-	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected signing method: %v \n", token.Header["alg"])
-		}
+	t, err := jwt.ParseWithClaims(token, &JWTClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return GetJWTSecretCode(), nil
 	})
 	if t != nil {
-		if claims, ok := t.Claims.(jwt.MapClaims); ok && t.Valid {
-			err = mapstructure.Decode(claims, &model)
-			if err == nil {
-				isValid = true
+		if claims, ok := t.Claims.(*JWTClaims); ok && t.Valid {
+			if model != nil {
+				err = mapstructure.Decode(claims.Object, &model)
 			}
-		} else {
-			fmt.Println(err)
+			isValid = true
 		}
 	}
 	return isValid, err
