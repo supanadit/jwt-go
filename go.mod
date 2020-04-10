@@ -1,4 +1,4 @@
-module easy-jwt
+module ej
 
 go 1.14
 

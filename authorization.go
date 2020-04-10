@@ -1,4 +1,4 @@
-package easy_jwt
+package ej
 
 import (
 	"fmt"

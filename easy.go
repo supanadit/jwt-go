@@ -1,4 +1,4 @@
-package easy_jwt
+package ej
 
 var secretCodeJWT string = "Default Secret Code"
 var authorizationStatus bool = true
