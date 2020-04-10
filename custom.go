@@ -16,7 +16,7 @@ func GenerateJWT(model jwt.Claims) (string, error) {
 
 // Verify JWT Token
 func VerifyJWT(model jwt.Claims, token string) (bool, error) {
-	isValid := IsUseAuthorization()
+	isValid := !IsUseAuthorization()
 	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v \n", token.Header["alg"])
