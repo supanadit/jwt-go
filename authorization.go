@@ -1,12 +1,10 @@
 package ej
 
-import "github.com/dgrijalva/jwt-go"
-
 // Default authorization model
 type Authorization struct {
 	Username string `form:"username" json:"username" xml:"username" binding:"required"`
 	Password string `form:"password" json:"password" xml:"password" binding:"required"`
-	jwt.Claims
+	Claims
 }
 
 // Generate JWT Token by authorization model

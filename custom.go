@@ -7,19 +7,19 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type JWTClaims struct {
+type Claims interface {
 	jwt.Claims
 }
 
 // Generate JWT Token
-func GenerateJWT(model JWTClaims) (string, error) {
+func GenerateJWT(model Claims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, model)
 	tokenString, err := token.SignedString(GetJWTSecretCode())
 	return tokenString, err
 }
 
 // Verify JWT Token
-func VerifyJWT(model JWTClaims, token string) (bool, error) {
+func VerifyJWT(model Claims, token string) (bool, error) {
 	isValid := !IsUseAuthorization()
 	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
