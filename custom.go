@@ -5,21 +5,29 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/mitchellh/mapstructure"
 	"golang.org/x/crypto/bcrypt"
+	"time"
 )
 
-type Claims interface {
-	jwt.Claims
+type JWTClaims struct {
+	Object interface{}
+	jwt.StandardClaims
 }
 
 // Generate JWT Token
-func GenerateJWT(model Claims) (string, error) {
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, model)
-	tokenString, err := token.SignedString(GetJWTSecretCode())
-	return tokenString, err
+func GenerateJWT(model interface{}) (string, error) {
+	r := JWTClaims{
+		Object: model,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Hour).Unix(),
+		},
+	}
+	t := jwt.NewWithClaims(jwt.SigningMethodHS256, r)
+	s, e := t.SignedString(GetJWTSecretCode())
+	return s, e
 }
 
 // Verify JWT Token
-func VerifyJWT(model Claims, token string) (bool, error) {
+func VerifyJWT(model interface{}, token string) (bool, error) {
 	isValid := !IsUseAuthorization()
 	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
