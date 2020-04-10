@@ -184,6 +184,7 @@ import (
 func main() {
 	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
 	ej.SetJWTSecretCode("Your Secret Code")
+ 
     // You can simply do this, ej.setExpiredTime(Hour,Minute,Second)
 	ej.SetExpiredTime(0, 0, 1)
 }
