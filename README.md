@@ -189,3 +189,97 @@ func main() {
 	ej.SetExpiredTime(0, 0, 1)
 }
 ```
+
+## Support Gin Web Framework out of the box
+
+```go
+package main
+
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/supanadit/easy-jwt-go"
+	"net/http"
+)
+
+func main() {
+	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	ej.SetJWTSecretCode("Your Secret Code")
+
+	// Create authorization
+	auth := ej.Authorization{
+		Username: "Hello World",
+		Password: "123",
+	}
+
+	router := gin.Default()
+
+	// Login / Authorization for create JWT Token
+	router.POST("/auth", func(c *gin.Context) {
+		var a ej.Authorization
+		err := c.Bind(&a)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"status": "Invalid body request",
+				"token":  nil,
+			})
+		} else {
+			valid, err := auth.VerifyPassword(a.Password)
+			if err != nil {
+				c.JSON(http.StatusBadRequest, gin.H{
+					"status": "Wrong username or password",
+					"token":  nil,
+				})
+			} else {
+				if valid {
+					token, err := a.GenerateJWT()
+					if err != nil {
+						c.JSON(http.StatusInternalServerError, gin.H{
+							"status": "Can't generate JWT token",
+							"token":  nil,
+						})
+					} else {
+						c.JSON(http.StatusOK, gin.H{
+							"status": "Success",
+							"token":  token,
+						})
+					}
+				} else {
+					c.JSON(http.StatusBadRequest, gin.H{
+						"status": "Wrong username or password",
+						"token":  nil,
+					})
+				}
+			}
+		}
+	})
+
+	// Test Authorization
+	router.GET("/test", func(c *gin.Context) {
+		// Variable for binding if you need decoded JWT
+		var dataAuth ej.Authorization
+		// Verify and binding JWT
+		token, valid, err := ej.VerifyAndBindingGinHeader(&dataAuth, c)
+
+		// in case if you don't want to decode the JWT, simply use this code
+		// token, valid, err := ej.VerifyGinHeader(c)
+
+		if err != nil {
+			c.JSON(http.StatusOK, gin.H{
+				"status": err.Error(),
+			})
+		} else {
+			if valid {
+				c.JSON(http.StatusOK, gin.H{
+					"status": token + " is valid",
+				})
+			} else {
+				c.JSON(http.StatusBadRequest, gin.H{
+					"status": "Invalid",
+				})
+			}
+		}
+	})
+
+	_ = router.Run(":8080")
+}
+```
