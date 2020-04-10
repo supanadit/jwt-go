@@ -26,25 +26,24 @@ func GetJWTFromGinHeader(c *gin.Context) (string, error) {
 	return token, err
 }
 
-func VerifyGinHeader(model *Claims, c *gin.Context) (valid bool) {
+func VerifyGinHeader(model *Claims, c *gin.Context) bool {
 	isValid := !IsUseAuthorization()
 	token, err := GetJWTFromGinHeader(c)
 	if err != nil {
-		token, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
+		t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("Unexpected signing method: %v \n", token.Header["alg"])
 			}
 			return GetJWTSecretCode(), nil
 		})
-
-		if token != nil {
-			if model, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-				err = mapstructure.Decode(model, &model)
+		if t != nil {
+			if claims, ok := t.Claims.(jwt.MapClaims); ok && t.Valid {
+				err = mapstructure.Decode(model, &claims)
 				if err == nil {
 					isValid = true
 				}
 			} else {
-				fmt.Printf("error while parsing token \n")
+				fmt.Printf("error while parsing t \n")
 			}
 		}
 	}
