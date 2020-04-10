@@ -51,7 +51,8 @@ func main() {
 }
 ```
 
-## Create JWT Authorization from your own struct ?
+## Custom Authorization
+
 ```go
 package main
 
