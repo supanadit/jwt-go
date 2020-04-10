@@ -58,7 +58,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/supanadit/easy-jwt-go"
 	"log"
 )
@@ -66,7 +65,7 @@ import (
 type Login struct {
 	Email    string
 	Password string
-	jwt.Claims
+	ej.Claims
 }
 
 func main() {
