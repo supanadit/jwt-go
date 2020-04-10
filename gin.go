@@ -26,7 +26,7 @@ func GetJWTFromGinHeader(c *gin.Context) (string, error) {
 	return token, err
 }
 
-func VerifyGinHeader(c *gin.Context) (claims *Claims, valid bool) {
+func VerifyGinHeader(c *gin.Context) (m *interface{}, valid bool) {
 	isValid := !IsUseAuthorization()
 	authorization := c.GetHeader("Authorization")
 	if authorization != "" {
@@ -55,5 +55,5 @@ func VerifyGinHeader(c *gin.Context) (claims *Claims, valid bool) {
 			}
 		}
 	}
-	return claims, isValid
+	return m, isValid
 }
