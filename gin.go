@@ -21,14 +21,14 @@ func GetJWTFromGinHeader(c *gin.Context) (token string, err error) {
 	return token, err
 }
 
-func VerifyGinHeader(c *gin.Context) bool {
+func VerifyGinHeader(c *gin.Context) (string, bool, error) {
 	return VerifyAndBindingGinHeader(nil, c)
 }
 
-func VerifyAndBindingGinHeader(model interface{}, c *gin.Context) (isValid bool) {
-	token, err := GetJWTFromGinHeader(c)
+func VerifyAndBindingGinHeader(model interface{}, c *gin.Context) (token string, isValid bool, err error) {
+	token, err = GetJWTFromGinHeader(c)
 	if err == nil {
 		isValid, err = VerifyAndBindingJWT(&model, token)
 	}
-	return isValid
+	return token, isValid, err
 }
