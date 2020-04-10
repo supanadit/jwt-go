@@ -99,3 +99,54 @@ func main() {
 	}
 }
 ```
+
+## Encrypt Password & Verify Password
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/supanadit/easy-jwt-go"
+	"log"
+)
+
+type Login struct {
+	Email    string
+	Password string
+	ej.Claims
+}
+
+func main() {
+	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	ej.SetJWTSecretCode("Your Secret Code")
+
+	// Create authorization from your own struct
+	auth := Login{
+		Email:    "hello@email.com",
+		Password: "123",
+	}
+
+	// Encrypt password, which you can save to database
+	ep, err := ej.EncryptPassword(auth.Password)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Encrypted Password " + string(ep))
+
+	// Verify Encrypted Password
+	valid, err := ej.VerifyPassword(string(ep), auth.Password)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Print("Status : ")
+
+	if valid {
+		fmt.Println("Valid")
+	} else {
+		fmt.Println("Invalid")
+	}
+}
+```
