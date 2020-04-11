@@ -33,6 +33,7 @@ func VerifyAndBindingGinHeader(model interface{}, c *gin.Context) (token string,
 	if err != nil {
 		if !IsUseAuthorization() {
 			err = nil
+			isValid = !IsUseAuthorization()
 		}
 	}
 	return token, isValid, err
