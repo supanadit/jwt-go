@@ -30,5 +30,10 @@ func VerifyAndBindingGinHeader(model interface{}, c *gin.Context) (token string,
 	if err == nil {
 		isValid, err = VerifyAndBindingJWT(&model, token)
 	}
+	if err != nil {
+		if !IsUseAuthorization() {
+			err = nil
+		}
+	}
 	return token, isValid, err
 }
