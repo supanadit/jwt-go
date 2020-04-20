@@ -6,33 +6,33 @@ type Authorization struct {
 	Password string `form:"password" json:"password" xml:"password" binding:"required"`
 }
 
-// Generate JWT Token by authorization model
+// GenerateJWT is to generate JWT token by authorization model
 func (auth Authorization) GenerateJWT() (string, error) {
 	return GenerateJWT(auth)
 }
 
-// Generate JWT Token by authorization model also set the expired time manually
+// GenerateJWTAndSetExpiredTime generate JWT token by authorization model also set the expired time manually
 func (auth Authorization) GenerateJWTAndSetExpiredTime(hour int64, minute int64, seconds int64) (string, error) {
 	return GenerateJWTAndSetExpiredTime(auth, hour, minute, seconds)
 }
 
-// Create password encryption using bcrypt
+// GetPasswordEncryption is to create password encryption using bcrypt
 func (auth Authorization) GetPasswordEncryption() ([]byte, error) {
 	return EncryptPassword(auth.Password)
 }
 
-// Create password encryption using bcrypt and string as the result
+// GetStringPasswordEncryption is to create password encryption using bcrypt and string as the result
 func (auth Authorization) GetStringPasswordEncryption() (string, error) {
 	encryption, err := auth.GetPasswordEncryption()
 	return string(encryption), err
 }
 
-// VerifyJWT the authorization
+// VerifyJWT is the simply way to check authorization
 func (auth Authorization) VerifyJWT(token string) (bool, error) {
 	return VerifyJWT(token)
 }
 
-// Verify Password
+// VerifyPassword is the fastest way to verify password
 func (auth Authorization) VerifyPassword(password string) (bool, error) {
 	ep, err := auth.GetStringPasswordEncryption()
 	if err != nil {

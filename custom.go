@@ -13,12 +13,12 @@ type CustomClaims struct {
 	jwt.StandardClaims
 }
 
-// Generate JWT Token
+// GenerateJWT is the function for generate JWT token
 func GenerateJWT(model interface{}) (s string, e error) {
 	return GenerateJWTAndSetExpiredTime(model, expiredHoursTime, expiredMinutesTime, expiredSecondsTime)
 }
 
-// Generate JWT Token
+// GenerateJWTAndSetExpiredTime will generate JWT token alongside with custom expired time
 func GenerateJWTAndSetExpiredTime(model interface{}, hours int64, minutes int64, seconds int64) (s string, e error) {
 	if hours != 0 || minutes != 0 || seconds != 0 {
 		r := CustomClaims{
@@ -37,12 +37,12 @@ func GenerateJWTAndSetExpiredTime(model interface{}, hours int64, minutes int64,
 	return s, e
 }
 
-// Verify JWT Token
+// VerifyJWT is the function for verify any generated JWT token
 func VerifyJWT(token string) (bool, error) {
 	return VerifyAndBindingJWT(nil, token)
 }
 
-// Verify JWT and binding the model
+// VerifyAndBindingJWT is the easy way to verify and binding JWT token at the same time
 func VerifyAndBindingJWT(model interface{}, token string) (bool, error) {
 	isValid := !IsUseAuthorization()
 	t, err := jwt.ParseWithClaims(token, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
@@ -59,12 +59,12 @@ func VerifyAndBindingJWT(model interface{}, token string) (bool, error) {
 	return isValid, err
 }
 
-// Encrypt Password
+// EncryptPassword is the function provided to encrypt any password safely
 func EncryptPassword(password string) ([]byte, error) {
 	return bcrypt.GenerateFromPassword([]byte(password), 12)
 }
 
-// Verify between encryption password and requested password
+// VerifyPassword is the function for verify between encryption password and requested password
 func VerifyPassword(encryptedPassword string, password string) (bool, error) {
 	isValid := false
 	err := bcrypt.CompareHashAndPassword([]byte(encryptedPassword), []byte(password))
