@@ -10,10 +10,10 @@ var useAuthorization = true
 var expiredHoursTime int64 = 1
 
 // expiredMinutesTime is the minutes time for duration JWT token
-var expiredMinutesTime int64 = 0
+var expiredMinutesTime int64 = 59
 
 // expiredSecondsTime is the seconds time for duration JWT token
-var expiredSecondsTime int64 = 0
+var expiredSecondsTime int64 = 60
 
 // GetStringJWTSecretCode is to get JWT secret code as a string
 func GetStringJWTSecretCode() string {
