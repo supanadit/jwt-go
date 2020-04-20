@@ -42,6 +42,7 @@ func VerifyJWT(token string) (bool, error) {
 	return VerifyAndBindingJWT(nil, token)
 }
 
+// Verify JWT and binding the model
 func VerifyAndBindingJWT(model interface{}, token string) (bool, error) {
 	isValid := !IsUseAuthorization()
 	t, err := jwt.ParseWithClaims(token, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {

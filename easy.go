@@ -37,6 +37,7 @@ func DisableAuthorization() {
 	useAuthorization = false
 }
 
+// Set Expired Time for JWT Session
 func SetExpiredTime(hour int64, minute int64, second int64) {
 	expiredHoursTime = hour
 	expiredMinutesTime = minute

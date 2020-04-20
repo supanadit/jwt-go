@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// Get JWT from header which provided by any of web framework, but with rules JWT "token"
 func GetJWTFromHeader(header string) (token string, err error) {
 	if header != "" {
 		splitAuthorization := strings.Split(header, " ")
@@ -19,6 +20,7 @@ func GetJWTFromHeader(header string) (token string, err error) {
 	return token, err
 }
 
+// Verify and binding any given token
 func VerifyAndBinding(model interface{}, t string) (bool, error) {
 	isValid, err := VerifyAndBindingJWT(&model, t)
 	if err != nil {
