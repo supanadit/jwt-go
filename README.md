@@ -4,7 +4,7 @@ A JWT library for Golang, this is not original library meaning this library depe
 
 ## Installation
 
-`go get github.com/supanadit/easy-jwt-go`
+`go get github.com/supanadit/jwt-go`
 
 ## Quick Start
 
