@@ -1,4 +1,4 @@
-module github.com/supanadit/easy-jwt-go
+module github.com/supanadit/jwt-go
 
 go 1.14
 
