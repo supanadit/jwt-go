@@ -37,7 +37,6 @@ func (auth Authorization) VerifyPassword(password string) (bool, error) {
 	ep, err := auth.GetStringPasswordEncryption()
 	if err != nil {
 		return false, err
-	} else {
-		return VerifyPassword(ep, password)
 	}
+	return VerifyPassword(ep, password)
 }
