@@ -1,5 +1,7 @@
 # Easy JWT Setup for Golang
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/supanadit/jwt-go)](https://goreportcard.com/report/github.com/supanadit/jwt-go)
+
 A JWT library for Golang, this is not original library meaning this library depends on other library such as [jwt-go](https://github.com/dgrijalva/jwt-go) which is the original JWT library for golang, [mapstructure](github.com/mitchellh/mapstructure), and [bcrypt](golang.org/x/crypto/bcrypt).
 
 ## Installation
