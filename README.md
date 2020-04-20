@@ -4,7 +4,7 @@ A JWT library for Golang, this is not original library meaning this library depe
 
 ## Installation
 
-`go get github.com/supanadit/easy-jwt-go`
+`go get github.com/supanadit/jwt-go`
 
 ## Quick Start
 
@@ -13,7 +13,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/supanadit/easy-jwt-go"
+	"github.com/supanadit/jwt-go"
 	"log"
 )
 
@@ -60,7 +60,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/supanadit/easy-jwt-go"
+	"github.com/supanadit/jwt-go"
 	"log"
 )
 
@@ -125,7 +125,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/supanadit/easy-jwt-go"
+	"github.com/supanadit/jwt-go"
 	"log"
 )
 
@@ -192,7 +192,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/supanadit/easy-jwt-go"
+	"github.com/supanadit/jwt-go"
 	"log"
 )
 
@@ -208,7 +208,7 @@ func main() {
 </p>
 </details>
 
-<details><summary><b>Support Gin Web Framework out of the box</b></summary>
+<details><summary><b>Support Gin Web Framework</b></summary>
 <p>
 
 ```go
@@ -216,7 +216,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/supanadit/easy-jwt-go"
+	"github.com/supanadit/jwt-go"
 	"net/http"
 )
 
@@ -315,7 +315,7 @@ You can simply `Enable` and `Disable` authorization by code bellow
 package main
 
 import (
-	"github.com/supanadit/easy-jwt-go"
+	"github.com/supanadit/jwt-go"
 )
 
 func main() {
