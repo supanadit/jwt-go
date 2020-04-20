@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// CustomClaims is the model provided by this library
 type CustomClaims struct {
 	Object interface{}
 	jwt.StandardClaims
