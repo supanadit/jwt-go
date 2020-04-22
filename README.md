@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/supanadit/jwt-go.svg?branch=master)](https://travis-ci.org/supanadit/jwt-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/supanadit/jwt-go)](https://goreportcard.com/report/github.com/supanadit/jwt-go)
 
-A JWT library for Golang and easy to use, but this is not original library meaning this library depends on other library such as [jwt-go](https://github.com/dgrijalva/jwt-go) which is the original JWT library for golang, also [mapstructure](github.com/mitchellh/mapstructure), and [bcrypt](golang.org/x/crypto/bcrypt).
+The easiest JWT Library that could be the starting point for any of your project.
 
 ## Installation
 
@@ -431,3 +431,8 @@ func main() {
 
 </p>
 </details>
+
+## Thanks to
+- [jwt-go](https://github.com/dgrijalva/jwt-go)
+- [bcrypt](golang.org/x/crypto/bcrypt)
+- [mapstructure](github.com/mitchellh/mapstructure)
