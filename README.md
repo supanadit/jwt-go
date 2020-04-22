@@ -405,7 +405,7 @@ func main() {
 </p>
 </details>
 
-<details><summary><b>Bonus</b></summary>
+<details><summary><b>Disable & Enable Authorization</b></summary>
 <p>
 
 You can simply `Enable` and `Disable` authorization by code bellow
