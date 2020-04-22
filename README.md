@@ -408,7 +408,7 @@ func main() {
 <details><summary><b>Disable & Enable Authorization</b></summary>
 <p>
 
-You can simply `Enable` and `Disable` authorization by code bellow
+You can simply `Enable` and `Disable` authorization using code bellow
 
 ```go
 package main
