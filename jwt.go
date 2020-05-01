@@ -60,7 +60,7 @@ func SetHMACSigningMethod(s SigningHMAC) {
 	signingHMACMethod = s
 }
 
-// SetHMACSigningMethod is to get signing method
+// GetHMACSigningMethod is to get signing method
 func GetHMACSigningMethod() SigningHMAC {
 	return signingHMACMethod
 }
