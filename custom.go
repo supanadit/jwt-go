@@ -30,7 +30,7 @@ func GenerateJWTAndSetExpiredTime(model interface{}, hours int64, minutes int64,
 					time.Second*time.Duration(seconds)).Unix(),
 			},
 		}
-		t := jwt.NewWithClaims(jwt.SigningMethodHS256, r)
+		t := jwt.NewWithClaims(GetHMACSigningMethod().Method, r)
 		s, e = t.SignedString(GetJWTSecretCode())
 	} else {
 		e = errors.New("expired time must be at least 1 second")

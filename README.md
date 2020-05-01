@@ -409,8 +409,6 @@ func main() {
 <details><summary><b>Disable & Enable Authorization</b></summary>
 <p>
 
-You can simply `Enable` and `Disable` authorization using code bellow
-
 ```go
 package main
 
@@ -422,11 +420,30 @@ func main() {
 	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
 	jwt.SetJWTSecretCode("Your Secret Code")
 
-	jwt.DisableAuthorization() // Disable authorization, meaning when verify jwt token it will return true even if the token was expired or invalid
+    // Disable authorization, meaning when verify jwt token it will return true even if the token was expired or invalid
+	jwt.DisableAuthorization()
 
 	// or
 
-	jwt.EnableAuthorization() // Enable authorization
+    // Enable authorization
+	jwt.EnableAuthorization()
+}
+```
+
+</p>
+</details>
+
+<details><summary><b>Set HMAC Signing Method</b></summary>
+<p>
+
+```go
+package main
+
+import "github.com/supanadit/jwt-go"
+
+func main() {
+	// Set HMAC signing method
+	jwt.SetHMACSigningMethod(jwt.HS256()) // or jwt.HS384(), jwt.HS512()
 }
 ```
 

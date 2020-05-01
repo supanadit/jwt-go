@@ -15,6 +15,9 @@ var expiredMinutesTime int64 = 59
 // expiredSecondsTime is the seconds time for duration JWT token
 var expiredSecondsTime int64 = 60
 
+// signingHMACMethod is a method for signing and validation JWT
+var signingHMACMethod SigningHMAC = HS256()
+
 // GetStringJWTSecretCode is to get JWT secret code as a string
 func GetStringJWTSecretCode() string {
 	return secretCodeJWT
@@ -50,4 +53,14 @@ func SetExpiredTime(hour int64, minute int64, second int64) {
 	expiredHoursTime = hour
 	expiredMinutesTime = minute
 	expiredSecondsTime = second
+}
+
+// SetHMACSigningMethod is to set signing method globally
+func SetHMACSigningMethod(s SigningHMAC) {
+	signingHMACMethod = s
+}
+
+// SetHMACSigningMethod is to get signing method
+func GetHMACSigningMethod() SigningHMAC {
+	return signingHMACMethod
 }
