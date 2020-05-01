@@ -4,7 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/supanadit/jwt-go)](https://goreportcard.com/report/github.com/supanadit/jwt-go)
 [![GoDoc](https://godoc.org/github.com/supanadit/jwt-go?status.svg)](https://godoc.org/github.com/supanadit/jwt-go)
 
-The easiest JWT Library that could be the starting point for any of your project.
+The easiest JWT Library that could be a starting point for your project.
 
 ## Installation
 
