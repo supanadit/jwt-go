@@ -22,7 +22,7 @@ import (
 )
 
 func main() {
-	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	// Set Your JWT Secret Code, its optional but important, because default secret code is not secure
 	jwt.SetJWTSecretCode("Your Secret Code")
 
 	// Create default authorization
@@ -75,7 +75,7 @@ type Login struct {
 }
 
 func main() {
-	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	// Set Your JWT Secret Code, its optional but important, because default secret code is not secure
 	jwt.SetJWTSecretCode("Your Secret Code")
 
 	// Create default authorization
@@ -139,7 +139,7 @@ type Login struct {
 }
 
 func main() {
-	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	// Set Your JWT Secret Code, its optional but important, because default secret code is not secure
 	jwt.SetJWTSecretCode("Your Secret Code")
 
 	// Create authorization from your own struct
@@ -201,7 +201,7 @@ import (
 )
 
 func main() {
-	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	// Set Your JWT Secret Code, its optional but important, because default secret code is not secure
 	jwt.SetJWTSecretCode("Your Secret Code")
  
     // You can simply do this, jwt.setExpiredTime(Hour,Minute,Second)
@@ -225,7 +225,7 @@ import (
 )
 
 func main() {
-	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	// Set Your JWT Secret Code, its optional but important, because default secret code is not secure
 	jwt.SetJWTSecretCode("Your Secret Code")
 
 	// Create authorization
@@ -323,7 +323,7 @@ import (
 )
 
 func main() {
-	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	// Set Your JWT Secret Code, its optional but important, because default secret code is not secure
 	jwt.SetJWTSecretCode("Your Secret Code")
 
 	// Create authorization
@@ -417,7 +417,7 @@ import (
 )
 
 func main() {
-	// Set Your JWT Secret Code, its optional but important, because default secret code is very insecure
+	// Set Your JWT Secret Code, its optional but important, because default secret code is not secure
 	jwt.SetJWTSecretCode("Your Secret Code")
 
     // Disable authorization, meaning when verify jwt token it will return true even if the token was expired or invalid
