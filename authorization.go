@@ -40,3 +40,8 @@ func (auth Authorization) VerifyPassword(password string) (bool, error) {
 	}
 	return VerifyPassword(ep, password)
 }
+
+// VerifyEncryptedPassword is the fastest way to verify encrypted password stored in database
+func (auth Authorization) VerifyEncryptedPassword(password string) (bool, error) {
+	return VerifyPassword(auth.Password, password)
+}
